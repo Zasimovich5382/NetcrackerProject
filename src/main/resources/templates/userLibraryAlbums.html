@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Emmie James - Albums</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/userLibrary.css">
+</head>
+<body style="background-color: #202020">
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light dark" style="background: #171717">
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/templates/userLoggedIn.html" style="color: white;">Home<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/templates/explorePage.html" style="color: white;">Explore</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/templates/userLibrary.html" style="color: white;">Library</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="display: inline; margin-right: auto">
+                <a class="navbar-brand" href="/templates/mainPage.html" style="margin-right: 0em;"><img src="/static/images/play.png" width="33" height="34"></a>
+            </ul>
+            <a class="nav-link" href="/templates/search.html" style="color: white;">Search</a>
+            <a class="nav-link" href="/templates/userEditPage.html" style="color: white;">Edit</a>
+            <a class="nav-link" href="/templates/mainPage.html" style="color: white;">Log Out</a>
+        </div>
+    </nav>
+</header>
+<main>
+    <div class="blocktop" style="background-image: url(../static/images/COM-Lucy-Peach-Homepage.jpg)">
+        <a href="/templates/uploadPage.html"><button type="button" class="btn btn-primary" style="background-color: crimson; margin-left: 90%; border-color: #171717; margin-top: 2em;">Upload</button></a>
+        <p class="p1">Emmie James</p>
+    </div>
+    <div class="mainblock-back">
+        <div class="mainblock">
+            <p class="p2">Your favorite albums:</p>
+            <table style="margin-bottom: 3em; padding-left: auto">
+                <tr>
+                    <td>
+                        <div class="card" style="width: 18rem; margin-left: 4em; margin-top: 1em; margin-bottom: 2em">
+                            <img src="/static/images/r-b-breakfast-club.jpg" class="card-img-top" alt="card" width="200" height="200">
+                            <div class="card-body">
+                                <h5 class="card-title">Album 1</h5>
+                                <p class="card-text">Listen all your  songs from Album 1. Shuffled?</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="card" style="width: 18rem;  margin-top: 1em; margin-bottom: 2em; margin-left: 4em;">
+                            <img src="/static/images/gettyimages-638549776.jpg" class="card-img-top" alt="card" width="200" height="200">
+                            <div class="card-body">
+                                <h5 class="card-title">Album 2</h5>
+                                <p class="card-text">Going back to album 2 you've liked.</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="card" style="width: 18rem;  margin-top: 1em; margin-bottom: 2em; margin-left: 4em;">
+                            <img src="/static/images/on-rock-music-and-writing-cover.jpg" class="card-img-top" alt="card" width="200" height="200">
+                            <div class="card-body">
+                                <h5 class="card-title">Album 3</h5>
+                                <p class="card-text">Favorite album 3 by favorite artist.</p>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</main>
+</body>
+</html>
