@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Search New Songs, Albums, Playlists</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/search.css">
+</head>
+<body style="background-image: url(../static/images/background.jpg)">
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light dark" style="background: #171717">
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/templates/mainPage.html" style="color: white;">Home<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/templates/explorePage.html" style="color: white;">Explore</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="display: inline; margin-right: auto">
+                <a class="navbar-brand" href="/templates/mainPage.html" style="margin: auto"><img src="/static/images/play.png" width="33" height="34"></a>
+            </ul>
+            <a class="nav-link" href="/templates/search.html" style="color: white;">Search</a>
+            <a class="nav-link" href="/templates/registration.html" style="color: white;">Sign Up</a>
+        </div>
+    </nav>
+</header>
+<main>
+    <div class="blocktop">
+        <p class="p1">Global Search.</p>
+        <div class="input-group mb-3" style="padding-top: 1em; padding-right: 10em">
+            <input type="text" class="form-control" placeholder="Search new songs, local artists..." aria-label="Recipient's username" aria-describedby="button-addon2" style="margin-left: 10em;">
+            <div class="input-group-append">
+                <a href="/templates/search.html"><button type="button" class="btn btn-danger" style="background-color: crimson;">Search</button></a>
+            </div>
+        </div>
+    </div>
+    <div class="mainblock-back">
+        <div class="mainblock">
+            <p class="p3">Search by categories:</p>
+            <div class="btn-group" role="group" aria-label="Basic example" style="margin-left: 6.2em;">
+                <button type="button" class="btn btn-secondary" style="background-color: #171717; border-color: white">Songs</button>
+                <button type="button" class="btn btn-secondary" style="background-color: #171717; border-color: white">Albums</button>
+                <button type="button" class="btn btn-secondary" style="background-color: #171717; border-color: white">Playlists</button>
+                <button type="button" class="btn btn-secondary" style="background-color: #171717; border-color: white">Artists</button>
+                <button type="button" class="btn btn-secondary" style="background-color: #171717; border-color: white">Genres</button>
+            </div>
+            <div class="input-group mb-3" style="padding-top: 2em; padding-right: 6em;">
+                <input type="text" class="form-control" placeholder="Search by categories..." aria-label="Recipient's username" aria-describedby="button-addon2" style="margin-left: 6.2em;  margin-bottom: 2em;">
+                <div class="input-group-append">
+                    <a href="/templates/search.html"><button type="button" class="btn btn-danger" style="background-color: crimson;">Search</button></a>
+                </div>
+            </div>
+            <div class="photo_main" style="padding-bottom: 5em;">
+                <p class="p2">Thousands local artists are waiting for you.</p>
+                <p class="p4">Join now.</p>
+                <a href="/templates/registration.html"><button type="button" class="btn btn-danger" style="margin-left: 6.2em; ">Sign Up For Free</button></a>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

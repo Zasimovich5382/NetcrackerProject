@@ -1,0 +1,73 @@
+.mainblock-back
+{
+    width: 90%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+
+}
+.p1
+{
+    font-family: 'Helvetica Neue',serif; font-size: 64px; color: white; margin-left: 2.2em;
+    padding-top: 4em;
+}
+.p2{
+    font-family: 'Helvetica Neue',serif; font-size: 24px; color: white; margin-left: 6em; padding-top: 0;
+}
+.mainblock
+{
+    width: 90%;
+    height: auto;
+    margin: auto;
+    background-color: white;
+}
+.p3
+{
+    font-family: 'Helvetica',serif; font-size: 20px; color: black; margin-left: 1em;;
+
+}
+.p4
+{
+    font-family: 'Helvetica',serif; font-size: 18px; color: black; margin-left: 1.2em;;
+
+}
+.p5
+{
+    font-family: 'Helvetica',serif; font-size: 14px; color: dimgrey; padding-right: 5em; margin-bottom: 7.5em;
+
+}
+.date
+{
+    font-family: 'Helvetica',serif; font-size: 14px; color: dimgrey; margin-bottom: 7.5em;
+}
+.prpic
+{
+    width: 150px;
+    height: 125px;
+    display: inline;
+
+
+}
+.post
+{
+    padding-top: 3em;
+    margin-left: 5em;
+    width: 90%;
+    height: auto;
+    padding-bottom: 3em;
+}
+A:link {
+    text-decoration: none;
+    color: white;/* Убирает подчеркивание для ссылок */
+}
+A:visited {
+    text-decoration: none;
+    color: white}
+A:active {
+    text-decoration: none;
+    color: white;}
+A:hover {
+    text-decoration: underline; /* Делает ссылку подчеркнутой при наведении на нее курсора */
+    color: black; /* Цвет ссылки */
+}
