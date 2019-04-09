@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Sign Up</title>
@@ -29,6 +27,7 @@
     </nav>
 </header>
 <main>
+    <p style="color: red" th:text="${message}" />
     <div class="mainform">
         <p class="p1">Sign Up</p>
         <form th:action="@{/registration}" method="post">
@@ -63,7 +62,7 @@
                     </td>
                 </tr>
             </table>
-            <a href="/registration"><p class="p3">Already have an account? Sign in</p></a>
+            <a href="/login"><p class="p3">Already have an account? Sign in</p></a>
         </form>
     </div>
 </main>
