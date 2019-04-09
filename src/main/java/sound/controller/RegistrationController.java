@@ -1,5 +1,6 @@
 package sound.controller;
 
+import org.springframework.ui.Model;
 import sound.domain.Role;
 import sound.domain.User;
 import sound.repos.UserRepo;
@@ -21,10 +22,10 @@ public class RegistrationController {
     }
     @PostMapping("/registration")
 
-    public String addUser(User user, Map<String,Object>model){
-        User UserFromDb = UserRepo.findByEmail(user.getEmail());
+    public String addUser(User user, Model model){
+        User UserFromDb = UserRepo.findByUsername(user.getUsername());
         if (UserFromDb!=null){
-            model.put("message","User exist!");
+            model.addAttribute("message","User exist!");
             return "/registration";
         }
         user.setActive(true);
