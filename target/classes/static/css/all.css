@@ -1,0 +1,23 @@
+.mainform
+{
+    width: 35%;
+    height: auto;
+    background-color: white;
+    opacity: 0.8;
+    margin-top: 3em;
+    margin-left: 31%;
+    position: center;
+    margin-bottom: 3em;
+}
+.p1
+{
+    font-family: 'Helvetica Neue',serif; font-size: 24px; color: black; padding-left: 40%; padding-top: 1em;
+}
+.p2
+{
+    font-family: 'Helvetica Neue',serif; font-size: 18px; color: black; padding-left: 37%; padding-top: 1em;
+}
+.p3
+{
+    font-family: 'Helvetica Neue',serif; font-size: 14px; color: black; padding-left: 25%; padding-top: 1em; padding-bottom: 2em;
+}
