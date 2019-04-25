@@ -22,5 +22,4 @@
     </#list>
     </tbody>
 </table>
-</body>
 </@c.page>

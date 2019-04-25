@@ -27,7 +27,7 @@ public class UserEditController {
     @GetMapping("{user}")
     public String userEditForm(@PathVariable User user, Model model) {
         model.addAttribute("user", user);
-        model.addAttribute("roles", Role.values());
+        model.addAttribute("role", Role.ARTIST);
 
         return AppConstants.USEREDIT;
     }
@@ -44,7 +44,7 @@ public class UserEditController {
                 .map(Role::name)
                 .collect(Collectors.toSet());
 
-        user.getRoles().clear();
+        if(user.getRoles().contains(Role.ARTIST))user.getRoles().remove(Role.ARTIST);
 
         for (String key : form.keySet()) {
             if (roles.contains(key)) {
@@ -52,8 +52,9 @@ public class UserEditController {
             }
         }
 
+
         userRepo.save(user);
 
-        return AppConstants.LIBRARY;
+        return "redirect:/userLibrary";
     }
 }

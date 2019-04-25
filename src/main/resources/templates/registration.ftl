@@ -43,5 +43,4 @@
         </form>
     </div>
 </main>
-</body>
 </@c.page>
