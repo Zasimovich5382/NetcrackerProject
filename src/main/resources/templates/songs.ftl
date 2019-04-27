@@ -2,16 +2,6 @@
 <#import "parts/common.ftl" as c>
 <@c.page "/static/css/userLibrary.css">
 <body style="background-color: #202020">
-<script>
-    function doAjax(var song; var playlist;) {
-        $.ajax({
-            url:'aadSongToPlaylist',
-            type : "POST",
-            data:({song:song, playlist:playlist)
-        });
-    }
-
-</script>
     <#include "parts/header.ftl">
 <main>
     <div class="mainblock-back">
@@ -25,20 +15,23 @@
                             <div class="card-body">
                                 <h5 class="card-title">${song.song_name}</h5>
                             </div>
-                            <div id="app">
+                            <div class="app">
                                 <nav>
-                                    <transition name="fade" mode="out-in">
-                                        <i class="material-icons menu" v-if="!show" @click="show = !show" key="menu">menu</i>
-                                        <i class="material-icons clear" v-else @click="show = !show" key="clear">clear</i>
-                                    </transition>
-                                    <transition name="fade">
-                                        <ul v-if="show">
+                                    <div class="addToPlaylist">
+                                        <i class="material-icons menu">menu</i>
+                                    <div>
+                                        <ul class="sub-menu" style="overflow: visible; height: auto; opacity: 1;">
                                             <#list playlists as playlist>
-                                                <p><i id="butt" @click="show = !show">${playlist.title}</i></p>
-                                            <p><button onclick="doAjax(${song};${playlist})" id="btt">добавь</button></p>
+                                                <li class="list">
+                                                    <a class="btt" data-playlistid="${playlist.getId()}"
+                                                            data-songid="${song.getId()}">
+                                                    ${playlist.title}
+                                                    </a>
+                                                </li>
                                             </#list>
                                         </ul>
-                                    </transition>
+                                    </div>
+                            </div>
                                 </nav>
                             </div>
                         </div>
@@ -49,4 +42,5 @@
         </div>
     </div>
 </main>
+<script src="/static/js/test.js"></script>
 </@c.page>

@@ -5,12 +5,13 @@
     display: inline-block;
 
 }
-
+ul {
+    list-style: none;
+}
 .playlistImage
 {
     width: 40%;
     height: 400px;
-    background-image: url("../html_resources/27393490478_9cca215cfc_o.jpg");
 }
 .playlistInfoBack{
     width: 60%;

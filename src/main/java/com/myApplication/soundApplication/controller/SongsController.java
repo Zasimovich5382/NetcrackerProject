@@ -29,14 +29,6 @@ public class SongsController {
         return "songs";
     }
 
-    @RequestMapping(value = "/aadSongToPlaylist", method = RequestMethod.POST)
-    public @ResponseBody
-    String aadSongToPlaylist(@RequestParam Song song,
-                             @RequestParam Playlist playlist){
-        playlist.getSongs().add(song);
-        playlistRepo.save(playlist);
-        return "redirect:/songs";
-    }
 
 
 }

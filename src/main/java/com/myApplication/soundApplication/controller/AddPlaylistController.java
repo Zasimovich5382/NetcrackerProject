@@ -50,7 +50,7 @@ public class AddPlaylistController {
             String resultFilename = uuidFile + "." + file.getOriginalFilename();
             file.transferTo(new File(uploadPath + "/" + resultFilename));
             playlist.setImg_name(resultFilename);
-        }
+        } else playlist.setImg_name(AppConstants.NONAME);
         playlistRepo.save(playlist);
         return "redirect:/userLibrary";
     }

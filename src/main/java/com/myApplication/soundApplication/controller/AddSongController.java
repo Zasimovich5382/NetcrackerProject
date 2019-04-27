@@ -53,7 +53,6 @@ public class AddSongController {
             file.transferTo(new File(uploadPath + "/" + resultFilename));
             song.setSong_name(resultFilename);
         }
-        song.setSong_name(file.getOriginalFilename());
         songRepo.save(song);
         return "redirect:/userLibrary";
     }

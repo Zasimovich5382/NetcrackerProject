@@ -3,6 +3,7 @@ package com.myApplication.soundApplication.domain;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -20,9 +21,19 @@ public class Playlist {
     @JoinColumn(name = "user_id")
     private User author;
 
-    @ElementCollection(targetClass = Song.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "playlist_songs1", joinColumns =@JoinColumn(name = "playlist_id"))
-    private Set<Song> songs;
+    @ManyToMany
+    @JoinTable(name="playlists_songs",
+            joinColumns=@JoinColumn(name="playlistId"),
+            inverseJoinColumns=@JoinColumn(name="songId")
+    )
+    private List<Song> songs;
+
+    @ManyToMany
+    @JoinTable(name="playlists_songs",
+            joinColumns=@JoinColumn(name="songId"),
+            inverseJoinColumns=@JoinColumn(name="playlistId")
+    )
+    private List<Playlist> songsOf;
 
     public Playlist(){
     }
@@ -68,11 +79,19 @@ public class Playlist {
         this.author = author;
     }
 
-    public Set<Song> getSongs() {
+    public List<Song> getSongs() {
         return songs;
     }
 
-    public void setSongs(Set<Song> songs) {
+    public void setSongs(List<Song> songs) {
         this.songs = songs;
+    }
+
+    public List<Playlist> getSongsOf() {
+        return songsOf;
+    }
+
+    public void setSongsOf(List<Playlist> songsOf) {
+        this.songsOf = songsOf;
     }
 }

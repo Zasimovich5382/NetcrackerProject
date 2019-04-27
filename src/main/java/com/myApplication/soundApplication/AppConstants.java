@@ -10,4 +10,5 @@ public class AppConstants {
     public static final String PLAYLIST = "playlist";
     public static final String ADDPLAYLIST = "addPlaylist";
     public static final String ADDSONG = "addSong";
+    public static final String NONAME = "noname.jpg";
 }
