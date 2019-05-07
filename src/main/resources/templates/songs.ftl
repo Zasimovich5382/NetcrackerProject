@@ -13,7 +13,7 @@
                     <td>
                         <div class="card" style="width: 18rem; margin-left: 4em; margin-top: 1em; margin-bottom: 2em">
                             <div class="card-body">
-                                <h5 class="card-title">${song.song_name}</h5>
+                                <h5 class="card-title">${song.songPath}</h5>
                             </div>
                             <div class="app">
                                 <nav>

@@ -8,8 +8,19 @@
     font-family: 'Helvetica Neue',serif; font-size: 64px; color: white; margin-left: 2.2em;
     padding-top: 4em;
 }
+
+
 .p2{
     font-family: 'Helvetica Neue',serif; font-size: 24px; color: white; margin-left: 6em; padding-top: 0;
+}
+
+#avatar{
+    background-image: url(../static/images/nonalbum.png); width: 200px!important; height: 200px!important; margin-left: 6em!important;
+    display: block!important;
+    border-radius: 50%; cursor: pointer; background-size: cover!important;
+    position: static!important;
+    margin-top: 3em!important;
+    background-repeat: no-repeat!important;
 }
 .mainblock
 {
@@ -65,3 +76,25 @@
     padding-bottom: 3em;
 }
 
+#gray{
+    background-color: rgba(255, 99, 71,0.75);
+    position: fixed;
+    left: 0; right: 0; top:0; bottom: 0;
+    z-index: 100;
+    display: none;
+}
+
+#mainform
+{
+    width: 35%;
+    height: auto;
+    background-color: white;
+    opacity: 0.8;
+    margin-top: 3em;
+    margin-left: 31%;
+    margin-bottom: 3em;
+    display: none;
+    z-index: 150;
+    position: fixed;
+    left: 0; right: 0; top: 0; bottom: 0;
+}

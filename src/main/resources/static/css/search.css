@@ -2,7 +2,7 @@
 {
     height: 400px;
     width: auto;
-    background-image: url("../html_resources/COM-Lucy-Peach-Homepage.jpg");
+    /*background-image: url("../html_resources/COM-Lucy-Peach-Homepage.jpg");*/
 
 }
 .p1
@@ -47,4 +47,21 @@
 {
     font-family: 'Helvetica Neue',serif; font-size: 24px; color: white; margin-left: 4em;
     padding-top: 1em;
+}
+
+.prpic
+{
+    width: 150px;
+    height: 125px;
+    display: inline;
+
+
+}
+.post
+{
+    margin-top: 3em;
+    margin-left: 5em;
+    width: 90%;
+    height: auto;
+    padding-bottom: 3em;
 }

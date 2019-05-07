@@ -4,10 +4,120 @@ $(document).ajaxSend(function(e, xhr, options) {
     xhr.setRequestHeader(header, token);
 });
 
-$(document).ready(
-    readyPlaylist());
+//Функция показа
+function show(state)
+{
+    document.getElementById('mainform').style.display = state;
+    document.getElementById('gray').style.display = state;
+}
 
-function readyPlaylist() {
+function showAddPlaylist(state)
+{
+    document.getElementById('addplaylist').style.display = state;
+    document.getElementById('gray').style.display = state;
+}
+$("#buttonForEdit").on('click', function (event) {
+    $.ajax({
+        url: '/editUser',
+        type: "POST",
+        dataType: 'json',
+        data: ({
+            email: $("#changeEmail").val(),
+            nickname: $("#changeName").val(),
+            password:$("#changePassword").val(),
+            artist:$("#checboxEditArtist").is(':checked')
+        }),
+        success: function (html) {
+            $('#changeName').html(html);
+            $('#nicknamelibrary').html($('#changeName').val());
+            $('#changeEmail').html(html);
+            $('#changePassword').html(html);
+        }
+    });
+});
+
+$("#buttonForAddPlaylist").on('click', function (event) {
+    var form = $('#postFormAddPlaylist')[0];
+    var data1 = new FormData(form);
+    var array = [];
+    var element =document.getElementById('selectAudioAddPlaylist').children;
+    for(var i=0; i < element.length; i++){
+        array.push(element[i].getAttribute('id'));
+    }
+
+    $.ajax({
+        url: '/addPlaylist',
+        type: "POST",
+        dataType: 'json',
+        enctype: 'multipart/form-data',
+        processData: false,  // Important!
+        contentType: false,
+        cache: false,
+        data: data1,
+        success: (data) => {addSong(data.id, array);
+        }
+    });
+});
+function addSong(id, array) {
+    $.ajax({
+        url: '/addPlaylistSong',
+        type: "POST",
+        contentType: 'application/json',
+        data: JSON.stringify({
+            array: array,
+            id: id
+        }),
+        success: (data) => {console.log(data)}
+    });
+}
+
+function searchSong() {
+    $.ajax({
+        url: '/searchSongAddPlaylist',
+        data: ({title:$('#inputSearchAudio').val()}),
+        success: (data) => {
+            $('#searchAudioAddPlaylist').html("<div> Результат</div>");
+           for(var i = 0; i < data.length; i++){
+               $('#searchAudioAddPlaylist').append('' +
+                   '<div id="'+data[i].id+'" data-duration="'+data[i].metaDuration+'" data-path="/sound/'+data[i].song_name+'" data-artist="'+data[i].metaArtist+'" data-title="'+data[i].metaTitle+'" class="playlist-item" onclick="play1('+data[i].id+')">\n' +
+                   '    <div class="playlist-inner">\n' +
+                   '        <div class="playlist-play">\n' +
+                   '                    <img class="icon-play2 play-button2" src="/static/images/playmusic.png" style="width: 30px"></img>\n' +
+                   '                </div>\n' +
+                   '                <div class="playlist-title">'+data[i].metaArtist+' - '+data[i].metaTitle+' </div>\n' +
+                   '            </div>\n' +
+                   '        <div class="playlist-meta">'+parseInt(data[i].metaDuration/60)+':'+parseInt(data[i].metaDuration%60)+'\n' +
+                   '    </div>\n' +
+                   '<button type="button" id="button'+data[i].id+'"  onclick="addSongToPlaylist('+data[i].id+')" style="background-color: crimson;float: right; border-color: #171717;">Add</button>'+
+                   '</div>');
+           }
+
+        }
+    });
+}
+function addSongToPlaylist(state) {
+    var audio = document.getElementById(state);
+    var parent = document.getElementById('selectAudioAddPlaylist');
+    $('#selectAudioAddPlaylist').append(audio);
+    $('#button'+state).html('delete');
+    $('#button'+state).attr('onclick', 'delMusic('+state+')')
+
+}
+
+function delMusic(state){
+    document.getElementById(state).remove();
+}
+//////////////////////////////playlist
+/*$(document).ready( readyPlaylist());*/
+function play1(id){
+    $('.play-button2').attr("src","/static/images/playmusic.png");
+    playPauseSong(id);
+    id++;
+    $('.sledbtn#sled').attr('data-id', id);
+    id--;id--;
+    $('.sledbtn#pred').attr('data-id', id);
+};
+
     var idSong, song, i, volume = 1, mute = false;
 
     function playNewSong(id) {
@@ -57,7 +167,7 @@ function readyPlaylist() {
 
     $('.playlist-item, .play-button').on('click', function(){
         var id = $(this).attr('id');
-        $('.play-button2').attr("src","../static/images/playmusic.png");
+        $('.play-button2').attr("src","/static/images/playmusic.png");
         playPauseSong(id);
         id++;
         $('.sledbtn#sled').attr('data-id', id);
@@ -138,6 +248,16 @@ function readyPlaylist() {
 
     $('.range').on('mouseout', function(){
         $('.setTime').hide();
-    });
+    })
 
+/////////////////////////////////отображения файла без загрузки на сервер
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#imgAddPlaylist')
+                .attr('src', e.target.result);
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
 }

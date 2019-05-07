@@ -1,14 +1,14 @@
 <#import "parts/common.ftl" as c>
 <@c.page "/static/css/all.css">
 <body style="background-image: url(/static/images/background_siginin.jpg)">
-    <#include "parts/header.ftl">
 <main>
-    <#--<div style="color: red" th:if="${param.error}">
+    <#--<div style="color: red" if="${param.error}">
         Invalid username and password.
     </div>
-    <div th:if="${param.logout}">
+    <div if="${param.logout}">
         You have been logged out.
     </div>-->
+        ${message?ifExists}
     <div class="mainform">
         <p class="p1">Sign In</p>
         <form action="/login" method="post">

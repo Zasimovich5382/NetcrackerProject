@@ -1,9 +1,8 @@
 <#import "parts/common.ftl" as c>
 <@c.page "/static/css/all.css">
 <body style="background-image: url(../static/images/background_siginin.jpg)">
-    <#include "parts/header.ftl">
 <main>
-    <#--<p style="color: red" th:text="${message}" />-->
+    ${message?ifExists}
     <div class="mainform">
         <p class="p1">Sign Up</p>
         <form action="/registration" method="post">

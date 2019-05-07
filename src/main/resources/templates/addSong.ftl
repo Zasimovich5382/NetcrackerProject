@@ -8,9 +8,6 @@
         <form action="/addSong" method="post" enctype="multipart/form-data">
             <p class="p2">Name:</p>
             <div class="form-group">
-                <input type="text" name="title" value="MySong" class="form-control"  style="margin-left: 2.5em; width: 82%">
-            </div>
-            <div class="form-group">
                 <input type="file" name="file" class="form-control"  style="margin-left: 2.5em; width: 82%">
             </div>
             <input type="hidden" value="${_csrf.token}" name="_csrf">
