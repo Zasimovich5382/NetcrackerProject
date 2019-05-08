@@ -1,0 +1,83 @@
+.blocktop
+{
+    height: 400px;
+    width: auto;
+    display: inline-block;
+
+}
+
+.playlistImage
+{
+    width: 40%;
+    height: 400px;
+    background-image: url("../html_resources/34-og.jpg");
+}
+.playlistInfoBack{
+    width: 60%;
+    height: 400px;
+    background-color: white;
+}
+.mainblock
+{
+    width: 90%;
+    height: auto;
+    background-color: white;
+    margin: 2em auto 3em;
+}
+.mainblock-back
+{
+    height: auto;
+    width: auto;
+    background-color: #202020;
+    -moz-background-size: 100%; /* Firefox 3.6+ */
+    -webkit-background-size: 100%; /* Safari 3.1+ и Chrome 4.0+ */
+    -o-background-size: 100%; /* Opera 9.6+ */
+    background-size: 100%;
+}
+.p1
+{
+    font-family: 'Helvetica Neue',serif; font-size: 32px; color: black; margin-left: 1em;
+    padding-top: 0.5em;
+}
+.p2
+{
+    font-family: 'Helvetica Neue',serif; font-size: 18px; color: #191919; margin-left: 2em;
+    padding-top: 0;
+}
+.cite
+{
+    font-size: 24px;
+}
+.p3
+{
+    font-family: 'Helvetica Neue',serif; font-size: 18px; color: white; margin-left: 3.5em; margin-top: 2em;
+}
+.p4
+{
+    font-family: 'Helvetica Neue',serif; font-size: 18px; color: black; margin-top: 0; margin-left: 2em; margin-bottom: 6em;
+}
+.nobr {
+    margin-left: 20em;
+}
+.table
+{
+    border: 0;
+}
+.table .tr
+{
+    width: auto;
+}
+A:link {
+    text-decoration: none;
+    color: white;/* Убирает подчеркивание для ссылок */
+}
+A:visited {
+    text-decoration: none;
+    color: white}
+A:active {
+    text-decoration: none;
+    color: white;}
+A:hover {
+    text-decoration: underline; /* Делает ссылку подчеркнутой при наведении на нее курсора */
+    color: black; /* Цвет ссылки */
+}

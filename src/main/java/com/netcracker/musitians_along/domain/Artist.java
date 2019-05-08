@@ -11,7 +11,11 @@ public class Artist {
 
     private String name;
 
+    private String city;
+
     private String avatar;
+
+    private String background;
 
     @OneToOne
     @JoinColumn(name = "user_id")
@@ -68,5 +72,21 @@ public class Artist {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getBackground() {
+        return background;
+    }
+
+    public void setBackground(String background) {
+        this.background = background;
     }
 }

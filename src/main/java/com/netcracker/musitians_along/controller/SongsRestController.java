@@ -74,6 +74,7 @@ public class SongsRestController {
         user.setNickname(nickname);
         user.setEmail(email);
         user.setPassword(password);
+
         if(user.getRoles().contains(Role.ARTIST) && artist.equals("false")){
             user.getRoles().remove(Role.ARTIST);
             Artist artistDB = artistRepo.findByUser(user);
@@ -81,8 +82,11 @@ public class SongsRestController {
         } else if(!user.getRoles().contains(Role.ARTIST) && artist.equals("true")){
             user.getRoles().add(Role.ARTIST);
             Artist artistDB = new Artist(user, user.getNickname(), user.getId());
+            artistDB.setAvatar("def_avatar.png");
+            artistDB.setBackground("def_background.jpg");
             artistRepo.save(artistDB);
         }
+
         userRepo.save(user);
 
         return user;

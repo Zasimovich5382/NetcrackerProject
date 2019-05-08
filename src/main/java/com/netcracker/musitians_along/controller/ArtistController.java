@@ -8,13 +8,11 @@ import com.netcracker.musitians_along.repos.SongRepo;
 import com.netcracker.musitians_along.service.SaveService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Map;
 
 @RestController
@@ -30,40 +28,47 @@ public class ArtistController {
     private SaveService saveService;
 
     @RequestMapping(value ="/artist/song/add", method = RequestMethod.POST)
-    public Map addSong(
-            @RequestParam ("img") MultipartFile img,
+    public Song addSong(
             @RequestParam ("audio") MultipartFile audio,
-            @AuthenticationPrincipal User user,
-            Map<String, Object> model){
+            @RequestParam ("image") MultipartFile img,
+
+            @AuthenticationPrincipal User user){
 
         Song song = saveService.extractMeta(audio, user, img);
         songRepo.save(song);
 
         Artist artist = artistRepo.findByUser(user);
         artist.getSongs().add(song);
+
         artistRepo.save(artist);
 
-        model.put("song", song);
-
-        return model;
+        return song;
     }
 
     @RequestMapping(value ="/editArtist", method = RequestMethod.POST)
-    public Map edit(
+    public Artist edit(
             @RequestParam ("avatar") MultipartFile avatar,
+            @RequestParam ("background") MultipartFile background,
             @RequestParam String nickname,
-            @AuthenticationPrincipal User user,
-            Map<String, Object> model){
+            @RequestParam String city,
+            /*@RequestBody Map<String,Object> map,*/
+            @AuthenticationPrincipal User user)throws IOException {
+        /*MultipartFile avatar = (MultipartFile)map.get("avatar");
+        MultipartFile background = (MultipartFile)map.get("background");
+        String nickname = (String) map.get("nickname");
+        String city = (String) map.get("city");*/
 
         Artist artist = artistRepo.findByUser(user);
         artist.setName(nickname);
-        /*String img = saveService.transfer(avatar);
-        artist.setAvatar(img);*/
+        artist.setCity(city);
+        String img = saveService.transfer(avatar);
+        String backgr = saveService.transfer(background);
+        artist.setAvatar(img);
+        artist.setBackground(backgr);
         artistRepo.save(artist);
 
-        model.put("artist", artist);
 
-        return model;
+        return artist;
     }
 
 
