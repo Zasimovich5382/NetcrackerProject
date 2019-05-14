@@ -16,22 +16,33 @@ function showAddPlaylist(state)
     document.getElementById('addplaylist').style.display = state;
     document.getElementById('gray').style.display = state;
 }
+ function checkbox () {
+    $.ajax({
+        url: '/editRole',
+        type: "POST",
+        dataType: 'json',
+        data: ({artist:$("#checboxEditArtist").is(':checked')
+        })
+    });
+}
 $("#buttonForEdit").on('click', function (event) {
+    var form = $('#postForm')[0];
+    var data1 = new FormData(form);
+
     $.ajax({
         url: '/editUser',
         type: "POST",
         dataType: 'json',
-        data: ({
-            email: $("#changeEmail").val(),
-            nickname: $("#changeName").val(),
-            password:$("#changePassword").val(),
-            artist:$("#checboxEditArtist").is(':checked')
-        }),
-        success: function (html) {
-            $('#changeName').html(html);
-            $('#nicknamelibrary').html($('#changeName').val());
-            $('#changeEmail').html(html);
-            $('#changePassword').html(html);
+        enctype: 'multipart/form-data',
+        processData: false,
+        contentType: false,
+        cache: false,
+        data: data1,
+        success: (data) => {console.log(data);
+            $('#avatarArtict').attr("src", "/img/"+data.avatar);
+            $('#nicknamelibrary').html(data.nickname);
+            $('#backround').css('backgroundImage', 'url(/img/'+data.background+')');
+            checkbox ()
         }
     });
 });
@@ -251,11 +262,22 @@ function play1(id){
     })
 
 /////////////////////////////////отображения файла без загрузки на сервер
-function readURL(input) {
+/*function readURL(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function (e) {
             $('#imgAddPlaylist')
+                .attr('src', e.target.result);
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}*/
+
+function readURL(input, file ) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#'+file)
                 .attr('src', e.target.result);
         };
         reader.readAsDataURL(input.files[0]);

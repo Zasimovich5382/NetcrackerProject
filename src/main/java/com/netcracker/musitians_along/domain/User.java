@@ -30,6 +30,14 @@ public class User implements UserDetails {
 
     private String nickname;
 
+    private String city;
+
+    private String avatar;
+
+    private String background;
+
+    private boolean artist;
+
     private String activationCode;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
@@ -43,10 +51,6 @@ public class User implements UserDetails {
 
     public boolean isUser() {
         return roles.contains(Role.USER);
-    }
-
-    public boolean isArtist() {
-        return roles.contains(Role.ARTIST);
     }
 
     public boolean isActive() {
@@ -105,7 +109,37 @@ public class User implements UserDetails {
         this.activationCode = activationCode;
     }
 
+    public String getCity() {
+        return city;
+    }
 
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getBackground() {
+        return background;
+    }
+
+    public void setBackground(String background) {
+        this.background = background;
+    }
+
+    public void setArtist(boolean artist) {
+        this.artist = artist;
+    }
+
+    public boolean isArtist() {
+        return artist;
+    }
 
     @Override
     public boolean isAccountNonExpired() {

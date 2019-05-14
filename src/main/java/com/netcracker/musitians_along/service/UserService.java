@@ -46,6 +46,9 @@ public class UserService implements UserDetailsService {
         }
         user.setNickname("User");
         user.setActive(true);
+        user.setArtist(false);
+        user.setAvatar("images/def_avatar.png");
+        user.setBackground("images/def_background.jpg");
         user.setRoles(Collections.singleton(Role.USER));
         user.setActivationCode(UUID.randomUUID().toString());
         user.setPassword(passwordEncoder.encode(user.getPassword()));

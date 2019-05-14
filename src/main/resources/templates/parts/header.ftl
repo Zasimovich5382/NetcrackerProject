@@ -11,7 +11,6 @@
                         <span></span>
                     </a>
                 </li>
-                <#if isArtist>
                 <li>
                     <a href="/artist/${user.getId()}">Public
                         <span></span>
@@ -20,7 +19,6 @@
                         <span></span>
                     </a>
                 </li>
-                </#if>
                 <#if isUser>
                 <li>
                     <a href="/userLibrary">Library

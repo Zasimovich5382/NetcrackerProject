@@ -13,7 +13,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
-<script src="/static/js/vue/script.js"></script>
+<script src="/static/js/vue/player.js"></script>
 </body>
 </html>
 </#macro>

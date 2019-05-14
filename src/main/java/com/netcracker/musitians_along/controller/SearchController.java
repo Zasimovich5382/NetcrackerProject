@@ -1,25 +1,18 @@
 package com.netcracker.musitians_along.controller;
 
-import com.netcracker.musitians_along.domain.Artist;
-import com.netcracker.musitians_along.repos.ArtistRepo;
+import com.netcracker.musitians_along.domain.User;
+import com.netcracker.musitians_along.repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
-
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @RestController
 public class SearchController {
 
     @Autowired
-    private ArtistRepo artistRepo;
+    private UserRepo userRepo;
 
     @GetMapping("/searchArtist")
     public Page searchArtist(@RequestParam String name,
@@ -27,7 +20,7 @@ public class SearchController {
 
         Integer page = Integer.parseInt(p);
         Pageable pageable = new PageRequest(page,3);
-        Page<Artist> listSearch = artistRepo.findByNameContaining(name, pageable);
+        Page<User> listSearch = userRepo.findByNicknameContaining(name, pageable);
         return listSearch;
     }
 }

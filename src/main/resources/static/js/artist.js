@@ -5,11 +5,11 @@ $(document).ajaxSend(function(e, xhr, options) {
 });
 
 $("#buttonForEdit").on('click', function (event) {
-    var form = $('#postFormEditInfo')[0];
+    var form = $('#postForm')[0];
     var data1 = new FormData(form);
 
     $.ajax({
-        url: '/editArtist',
+        url: '/addPublicSong',
         type: "POST",
         dataType: 'json',
         enctype: 'multipart/form-data',
@@ -18,9 +18,6 @@ $("#buttonForEdit").on('click', function (event) {
         cache: false,
         data: data1,
         success: (data) => {console.log(data);
-            $('#avatarArtict').attr("src", "/img/"+data.avatar);
-            $('#artistName').html(data.name);
-            $('#backround').css('backgroundImage', 'url(/img/'+data.background+')')
         }
     });
 });
@@ -47,24 +44,3 @@ function readURL(input, file ) {
         reader.readAsDataURL(input.files[0]);
     }
 }
-
-$("#buttonForAddSong").on('click', function (event) {
-    var form = $('#postFormAddSong')[0];
-    var data1 = new FormData(form);
-
-    $.ajax({
-        url: '/artist/song/add',
-        type: "POST",
-        dataType: 'json',
-        enctype: 'multipart/form-data',
-        processData: false,
-        contentType: false,
-        cache: false,
-        data: data1,
-        success: (data) => {console.log(data);
-            /*$('#avatarArtict').attr("src", "/img/"+data.avatar);
-            $('#artistName').html(data.name);
-            $('#backround').css('backgroundImage', 'url(/img/'+data.background+')')*/
-        }
-    });
-});

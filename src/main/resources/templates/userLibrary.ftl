@@ -4,9 +4,10 @@
 <body style="background-color: #202020">
     <#include "parts/header.ftl">
 <main id="main">
-    <div class="blocktop" style="background-image: url(../static/images/COM-Lucy-Peach-Homepage.jpg)">
+    <div class="blocktop" id="backround" style="background-image: url(/img/${user.getBackground()})">
         <a><button type="button" onclick="show('block')" class="btn btn-primary" style="background-color: crimson; margin-left: 90%; border-color: #171717; margin-top: 2em;">Edit Page</button></a>
-        <p class="p1" id="nicknamelibrary">${nickname}</p>
+        <img id="avatarArtict" width="300px" height="300px" src="/img/${user.getAvatar()}" style = "border-radius: 50%; position: relative; z-index: 5; bottom: 30px; left: 100px"/>
+        <div class="p1" id="nicknamelibrary" style="position: relative; left: 400px; bottom: 200px ">${nickname}</div>
     </div>
     <div class="mainblock-back">
         <div class="mainblock">
@@ -39,21 +40,26 @@
     <div id="gray" onclick="show('none');showAddPlaylist('none')"></div>
     <#-------------------------------------------------------------форма для редактирования информации о юзере-->
     <div id="mainform">
-        <form id="postForm">
+        <form id="postForm" enctype="multipart/form-data" method="POST">
             <div>
-                <p class="p7" style="display: inline-block;">Change name:</p>
                 <img src="/static/images/closemenu.png" style="width: 35px;height: 35px; float: right; padding: 10px 10px" onclick="show('none')">
             </div>
+            <label for="changeBackground">
+                <img src="/img/${user.getBackground()}" width="100%" height="200px" id="backgroundImg" style="z-index: 5;position: relative;">
+            </label>
+            <label for="changeAvatar">
+                <img src="/img/${user.getAvatar()}" width="100px" height="100px" id="avatarImg" style="border-radius: 50%; z-index: 10;top: -140px; left: 50px;position: relative;">
+            </label>
+            <div style="position: relative;bottom: 130px">
             <div class="form-group">
+                <p class="p7" style="display: inline-block;">Change name:</p>
+
                 <input type="text" name="nickname" value="${user.nickname}" class="form-control" id="changeName"  style="margin-left: 2.5em; width: 82%">
-            </div>
-            <p class="p7">Change email:</p>
-            <div class="form-group">
+
+                <p class="p7">Change email:</p>
                 <input type="text" name="email" value="${user.email}" class="form-control" id="changeEmail"  style="margin-left: 2.5em; width: 82%">
-            </div>
-            <p class="p7">Change password:</p>
-            <div class="form-group">
-                <input type="password" name="password" value="${user.password}" class="form-control" id="changePassword"  style="margin-left: 2.5em; width: 82%">
+                <p class="p7" style="display: inline-block;">Change city:</p>
+                <input type="text" name="city" class="form-control" id="changeCity"  style="margin-left: 2.5em; width: 82%">
             </div>
             <div class="form-group">
                 <ul>
@@ -68,7 +74,10 @@
 
             <input type="hidden" value="${user.id}" name="userId">
             <input type="hidden" value="${_csrf.token}" name="_csrf">
-            <button type="button" class="btn btn-primary" style="background-color: crimson; border-color: white; margin-left: 40%; margin-bottom: 2em;" id="buttonForEdit">Save</button>
+                <input type="file" name="avatar" onchange="readURL(this,'avatarImg');" class="form-control" id="changeAvatar"  style="margin-left: 2.5em; width: 82%; display: none">
+                <input type="file" name="background" onchange="readURL(this,'backgroundImg' );" class="form-control" id="changeBackground"  style="margin-left: 2.5em; width: 82%; display: none">
+            <button type="button" class="btn btn-primary" style="background-color: crimson; border-color: white; margin-left: 40%; " id="buttonForEdit">Save</button>
+            </div>
         </form>
     </div>
     <#---------------------------------------------------------------------Добавить плейлист-->

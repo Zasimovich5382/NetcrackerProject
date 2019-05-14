@@ -23,6 +23,8 @@ public class Song {
 
     private String metaTempo;
 
+    private boolean publicSong;
+
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
@@ -110,5 +112,13 @@ public class Song {
 
     public void setMetaTempo(String metaTempo) {
         this.metaTempo = metaTempo;
+    }
+
+    public boolean isPublicSong() {
+        return publicSong;
+    }
+
+    public void setPublicSong(boolean publicSong) {
+        this.publicSong = publicSong;
     }
 }

@@ -1,7 +1,7 @@
 package com.netcracker.musitians_along.controller;
 
 import com.netcracker.musitians_along.AppConstants;
-import com.netcracker.musitians_along.domain.Artist;
+import com.netcracker.musitians_along.domain.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,9 +15,21 @@ public class MainController {
         return AppConstants.SEARCH;
     }
 
-    @GetMapping("/"+ AppConstants.ARTIST +"/{artist}")
-    public String getArtist(@PathVariable Artist artist, Model model){
-        model.addAttribute("artist", artist);
+    @GetMapping("/"+ AppConstants.ARTIST +"/{user}")
+    public String getArtist(@PathVariable User user, Model model){
+        model.addAttribute("user", user);
         return AppConstants.ARTIST;
     }
+
+    @GetMapping("/index")
+    public String geh(){
+        return "index";
+    }
+
+    @GetMapping("/index2")
+    public String geh2(){
+        return "index2";
+    }
 }
+
+

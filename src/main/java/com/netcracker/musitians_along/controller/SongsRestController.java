@@ -2,10 +2,10 @@ package com.netcracker.musitians_along.controller;
 
 import com.netcracker.musitians_along.AppConstants;
 import com.netcracker.musitians_along.domain.*;
-import com.netcracker.musitians_along.repos.ArtistRepo;
 import com.netcracker.musitians_along.repos.PlaylistRepo;
 import com.netcracker.musitians_along.repos.SongRepo;
 import com.netcracker.musitians_along.repos.UserRepo;
+import com.netcracker.musitians_along.service.SaveService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -28,7 +28,7 @@ public class SongsRestController {
     private UserRepo userRepo;
 
     @Autowired
-    private ArtistRepo artistRepo;
+    private SaveService saveService;
 
     @Value("${upload.path}")
     private String uploadPath;
@@ -66,31 +66,43 @@ public class SongsRestController {
 
     @RequestMapping(value ="/editUser", method = RequestMethod.POST)
     public User editUser(
+            @RequestParam ("avatar") MultipartFile avatar,
+            @RequestParam ("background") MultipartFile background,
+            @RequestParam String city,
             @RequestParam String nickname,
             @RequestParam String email,
-            @RequestParam String password,
-            @RequestParam String artist,
-            @AuthenticationPrincipal User user) {
+            @AuthenticationPrincipal User user) throws IOException{
         user.setNickname(nickname);
         user.setEmail(email);
-        user.setPassword(password);
-
-        if(user.getRoles().contains(Role.ARTIST) && artist.equals("false")){
-            user.getRoles().remove(Role.ARTIST);
-            Artist artistDB = artistRepo.findByUser(user);
-            artistRepo.delete(artistDB);
-        } else if(!user.getRoles().contains(Role.ARTIST) && artist.equals("true")){
-            user.getRoles().add(Role.ARTIST);
-            Artist artistDB = new Artist(user, user.getNickname(), user.getId());
-            artistDB.setAvatar("def_avatar.png");
-            artistDB.setBackground("def_background.jpg");
-            artistRepo.save(artistDB);
+        user.setCity(city);
+        if(!avatar.isEmpty()) {
+            String img = saveService.transfer(avatar);
+            user.setAvatar(img);
+        }
+        if(!background.isEmpty()) {
+            String backgr = saveService.transfer(background);
+            user.setBackground(backgr);
         }
 
         userRepo.save(user);
 
         return user;
     }
+
+    @RequestMapping(value ="/editRole", method = RequestMethod.POST)
+    public User editUserRole(
+            @RequestParam String artist,
+            @AuthenticationPrincipal User user) {
+       if(artist.equals("true")){
+            user.setArtist(true);
+        } else {
+            user.setArtist(false);
+        }
+        userRepo.save(user);
+        return user;
+    }
+
+
 
     @RequestMapping(value ="/addPlaylist", method = RequestMethod.POST)
     public Playlist addPlaylist(
@@ -129,8 +141,8 @@ public class SongsRestController {
     }
 
     @RequestMapping(value ="/artistInfo/{artist}", method = RequestMethod.GET)
-    public Artist artistInfo(@PathVariable("artist") Artist artist)  {
-        return artistRepo.findFirstById(artist.getId());
+    public User artistInfo(@PathVariable("artist") User artist)  {
+        return userRepo.findFirstById(artist.getId());
     }
 
     @GetMapping("/searchSongAddPlaylist")
