@@ -10,7 +10,7 @@
         </div>
         <form action="/registration" method="post" onsubmit="saveValues()">
             <div class="form-group">
-                <input type="text" class="form-control ${(usernameError??)?string('is-invalid', '')}" name="username" value="<#if user??>${user.username}</#if>" id="inputName" placeholder="Name" style="margin-left: 2.5em; width: 82%">
+                <input type="email" class="form-control ${(usernameError??)?string('is-invalid', '')}" name="username" value="<#if user??>${user.username}</#if>" id="inputName" placeholder="Enter email address" style="margin-left: 2.5em; width: 82%">
                 <#if usernameError??>
                 <div class="invalid-feedback">
                     ${usernameError}
@@ -34,12 +34,12 @@
                 </#if>
             </div>
             <div class="form-group">
-                <input type="email" class="form-control ${(emailError??)?string('is-invalid', '')}"
-                       value="<#if user??>${user.email}</#if>" name="email" id="exampleInputEmail1"
-                       aria-describedby="emailHelp" placeholder="Enter email address" style="margin-left: 2.5em; width: 82%">
-                <#if emailError??>
+                <input type="text" class="form-control ${(nicknameError??)?string('is-invalid', '')}"
+                       value="<#if user??>${user.nickname}</#if>" name="nickname" id="exampleInputNickname"
+                       aria-describedby="emailHelp" placeholder="Enter nickname" style="margin-left: 2.5em; width: 82%">
+                <#if nicknameError??>
                     <div class="invalid-feedback">
-                        ${emailError}
+                        ${nicknameError}
                     </div>
                 </#if>
             </div>

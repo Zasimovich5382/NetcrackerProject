@@ -5,6 +5,7 @@ import com.netcracker.musitians_along.domain.User;
 import com.netcracker.musitians_along.repos.UserRepo;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,7 +16,7 @@ import java.util.Collections;
 import java.util.UUID;
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserService{
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -26,42 +27,56 @@ public class UserService implements UserDetailsService {
     @Autowired
     private MailSender mailSender;
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepo.findByUsername(username);
+    @Autowired
+    private SessionUserService sessionService;
 
-        if (user == null) {
+    /*@Override
+    public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
+        User userDB = userRepo.findByUsername(name);
+        if (userDB == null) {
             throw new UsernameNotFoundException("User not found");
         }
+        sessionService.setArtist(userDB.isArtist());
+        sessionService.setUsername(userDB.getUsername());
+        sessionService.setPassword(userDB.getPassword());
+        sessionService.setNickname(userDB.getNickname());
+        sessionService.setAvatar(userDB.getAvatar());
+        sessionService.setBackground(userDB.getBackground());
+        sessionService.setId(userDB.getId());
+        sessionService.setActive(userDB.isActive());
+        sessionService.setCity(userDB.getCity());
+
+        UserDetails user = sessionService;
 
         return user;
 
 
-    }
+    }*/
 
     public boolean addUser(User user){
         User UserFromDb = userRepo.findByUsername(user.getUsername());
         if(UserFromDb != null){
             return false;
         }
-        user.setNickname("User");
+
         user.setActive(true);
         user.setArtist(false);
-        user.setAvatar("images/def_avatar.png");
-        user.setBackground("images/def_background.jpg");
+        user.setCity("Russia");
+        user.setAvatar("default/def_avatar.png");
+        user.setBackground("default/def_background.jpg");
         user.setRoles(Collections.singleton(Role.USER));
         user.setActivationCode(UUID.randomUUID().toString());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         userRepo.save(user);
 
-        if(!StringUtils.isEmpty(user.getEmail())){
+        if(!StringUtils.isEmpty(user.getUsername())){
             String message = String.format("Hello, %s!\n"+
                     "Welcome to MusiciansAlong. Please, visit next link: http://localhost:8080/activate/%s",
                     user.getUsername(),
                     user.getActivationCode()
             );
-            mailSender.send(user.getEmail(), "Activation code", message);
+            mailSender.send(user.getUsername(), "Activation code", message);
 
         }
 
@@ -81,4 +96,15 @@ public class UserService implements UserDetailsService {
 
         return true;
     }
+
+
+    public User authUser(){
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        User userFromDb = userRepo.findByUsername(name);
+
+        return userFromDb;
+    }
+
+
+
 }

@@ -1,5 +1,4 @@
-
-var songApi = Vue.resource('/songCollect/'+$('#main').attr("data-id"));
+var songApi = Vue.resource('/songCollect');
 const app = new Vue({
     el: "#app",
     data: {
@@ -10,7 +9,6 @@ const app = new Vue({
         isCurrentlyPlaying: "",
         onRepeat: false,
         shuffle: false,
-        adress:'/songCollect',
 
         loop: {
             state: false,
@@ -65,31 +63,23 @@ const app = new Vue({
     created() {
         this.innerLoop = this.loop.state;
         songApi.get().then(result =>
-            result.json().then(
-                data => data.forEach(song => this.songs.push(song), song =>this.playlist.songs.push(song)),
-            ),
-
-
+            result.json().then(data =>
+                    data.forEach(song => this.songs.push(song), song =>this.playlist.songs.push(song)),
+                console.log(this.songs)
+            )
         );
-
 
     },
 
     mounted() {
         this.audioPlayer = this.$el.querySelectorAll("audio")[0];
         this.initPlayer();
-        fetch("/songCollect/"+$('#main').attr("data-id")).then(result =>
-            result.json().then(data => {
-                if (data.length > this.songs.length || data.length < this.songs.length) {
-                    var s = [];
-                    this.songs = s;
-                data.forEach(song => this.songs.push(song), song =>this.playlist.songs.push(song))
-                }
-            })/*.then(this.songs.pop())*/
+        fetch("/songCollect").then(result =>
+            result.json().then(data =>
+                this.songs.push(data[data.length-1]), data =>this.playlist.songs.push(data[data.length-1])),
 
 
         );
-
     },
 
     methods: {

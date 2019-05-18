@@ -13,14 +13,14 @@
                     <td>
                         <div class="card" style="width: 18rem; margin-left: 4em; margin-top: 1em; margin-bottom: 2em">
                             <div class="card-body">
-                                <h5 class="card-title">${song.songPath}</h5>
+                                <h5 class="card-title">${song.url}</h5>
                             </div>
                             <div class="app">
                                 <nav>
                                     <div class="addToPlaylist">
                                         <i class="material-icons menu">menu</i>
                                     <div>
-                                        <ul class="sub-menu" style="overflow: visible; height: auto; opacity: 1;">
+                                        <ul class="sub-menu" style="overflow: visible; height: auto; opacity: 1; position: relative; bottom: 30px; left: 250px;background-color: tomato">
                                             <#list playlists as playlist>
                                                 <li class="list">
                                                     <a class="btt" data-playlistid="${playlist.getId()}"

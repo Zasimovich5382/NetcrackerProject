@@ -41,6 +41,7 @@ $("#buttonForEdit").on('click', function (event) {
         success: (data) => {console.log(data);
             $('#avatarArtict').attr("src", "/img/"+data.avatar);
             $('#nicknamelibrary').html(data.nickname);
+            $('#changeCity').html(data.city);
             $('#backround').css('backgroundImage', 'url(/img/'+data.background+')');
             checkbox ()
         }

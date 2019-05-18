@@ -18,6 +18,8 @@ $("#buttonForEdit").on('click', function (event) {
         cache: false,
         data: data1,
         success: (data) => {console.log(data);
+            app.$mount("#app")
+
         }
     });
 });
@@ -44,3 +46,55 @@ function readURL(input, file ) {
         reader.readAsDataURL(input.files[0]);
     }
 }
+
+function delSong(button) {
+
+    $.ajax({
+        url: '/delPublicSong',
+        type: "POST",
+        dataType: 'json',
+        data: {id:button},
+        success: (data) => {console.log(data);
+            app.$mount("#app")
+
+
+        }
+    });
+
+
+}
+
+function changeAudio(id) {
+    showAddAlbum('block');
+    $('#addSongIdd').val(id);
+
+
+}
+
+
+function showAddAlbum(state)
+{
+    document.getElementById('mainform3').style.display = state;
+    document.getElementById('gray').style.display = state;
+}
+
+
+function addSongPublicSongToPlaylist(playlist){
+
+    $.ajax({
+        url: '/songsRest',
+        type: "POST",
+        data: {
+            song: $('#addSongIdd').val(),
+            playlist: playlist ,
+        },
+        success: (data) => {
+            console.log(data);
+        }
+    });
+}
+
+
+
+
+

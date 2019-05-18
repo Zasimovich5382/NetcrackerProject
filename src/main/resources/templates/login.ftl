@@ -20,7 +20,7 @@
         <form action="/login" method="post" onsubmit="saveValues()">
 
             <div class="form-group">
-                <input type="text" class="form-control ${(usernameError??)?string('is-invalid', '')}" name="username" id="inputName" aria-describedby="emailHelp" placeholder="Enter username" style="margin-left: 2.5em; width: 82%">
+                <input type="email" class="form-control ${(usernameError??)?string('is-invalid', '')}" name="username" id="inputName" aria-describedby="emailHelp" placeholder="Enter Email" style="margin-left: 2.5em; width: 82%">
             <#if usernameError??>
                 <div class="invalid-feedback">
                     ${usernameError}
@@ -37,10 +37,6 @@
             </#if>
             </div>
 
-            <div class="form-group form-check" style="margin-left: 2.5em">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1" >
-                <label class="form-check-label" for="checkBox">Remember me</label>
-            </div>
             <button type="submit" id="sumbitButton" class="btn btn-primary" style="background-color: crimson; border-color: white; margin-left: 40%">Sign In!</button>
             <p class="p2">Or enter with:</p>
             <table>
@@ -61,5 +57,4 @@
         </form>
     </div>
 </main>
-<script src="/static/js/registration.js"></script>
 </@c.page>

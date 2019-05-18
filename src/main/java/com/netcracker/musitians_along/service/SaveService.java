@@ -57,8 +57,8 @@ public class SaveService {
             input.close();
 
             song = new Song(metadata.get("title"), metadata.get("xmpDM:artist"), metadata.get("xmpDM:genre"), metadata.get("xmpDM:duration"), metadata.get("xmpDM:tempo"), user);
-            song.setSongPath(resultFilename);
-            song.setImgName(transfer(img));
+            song.setUrl("/sound/"+resultFilename);
+            song.setCoverUrl(transfer(img));
 
 
         } catch (FileNotFoundException e) {

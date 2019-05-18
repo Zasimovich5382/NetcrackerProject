@@ -1,4 +1,4 @@
-<#include "parts/security.ftl">
+<#--<#include "parts/security.ftl">-->
 <#import "parts/common.ftl" as c>
 <@c.page "/static/css/userLibrary.css">
 <body style="background-color: #202020">
@@ -7,7 +7,8 @@
     <div class="blocktop" id="backround" style="background-image: url(/img/${user.getBackground()})">
         <a><button type="button" onclick="show('block')" class="btn btn-primary" style="background-color: crimson; margin-left: 90%; border-color: #171717; margin-top: 2em;">Edit Page</button></a>
         <img id="avatarArtict" width="300px" height="300px" src="/img/${user.getAvatar()}" style = "border-radius: 50%; position: relative; z-index: 5; bottom: 30px; left: 100px"/>
-        <div class="p1" id="nicknamelibrary" style="position: relative; left: 400px; bottom: 200px ">${nickname}</div>
+        <div class="p1" id="citylibrary" style="position: relative; left: 1150px; bottom: 200px ">${user.getCity()}</div>
+        <div class="p1" id="nicknamelibrary" style="position: relative; left: 1150px; bottom: 200px ">${user.getNickname()}</div>
     </div>
     <div class="mainblock-back">
         <div class="mainblock">
@@ -54,12 +55,12 @@
             <div class="form-group">
                 <p class="p7" style="display: inline-block;">Change name:</p>
 
-                <input type="text" name="nickname" value="${user.nickname}" class="form-control" id="changeName"  style="margin-left: 2.5em; width: 82%">
+                <input type="text" name="nickname" value="${user.getNickname()}" class="form-control" id="changeName"  style="margin-left: 2.5em; width: 82%">
 
                 <p class="p7">Change email:</p>
-                <input type="text" name="email" value="${user.email}" class="form-control" id="changeEmail"  style="margin-left: 2.5em; width: 82%">
+                <input type="email" name="username" value="${user.getUsername()}" class="form-control" id="changeEmail"  style="margin-left: 2.5em; width: 82%">
                 <p class="p7" style="display: inline-block;">Change city:</p>
-                <input type="text" name="city" class="form-control" id="changeCity"  style="margin-left: 2.5em; width: 82%">
+                <input type="text" name="city" value="${user.getCity()}" class="form-control" id="changeCity"  style="margin-left: 2.5em; width: 82%">
             </div>
             <div class="form-group">
                 <ul>
@@ -67,7 +68,7 @@
                         <i>Click if you want to become an artist and share your music with others.</i>
                     </li>
                     <li class="checkboxForArtist" style="float: right; margin-right: 80px">
-                        <label ><input type="checkbox" id="checboxEditArtist" name="ARTIST" ${user.roles?seq_contains(ARTIST)?string("checked", "")}>ARTIST</label>
+                        <label ><input type="checkbox" id="checboxEditArtist" name="ARTIST" ${user.isArtist()? string("checked", "")}>ARTIST</label>
                     </li>
                 </ul>
             </div>
@@ -93,7 +94,7 @@
                 <input type="text" name="title" class="form-control" id="enterPlaylistName" >
             </div>
 
-            <input type="file"  name="file" class="form-control" id="enterPlaylistImage" onchange="readURL(this);">
+            <input type="file"  name="file" class="form-control" id="enterPlaylistImage" accept=".jpg, .png, .jpeg" onchange="readURL(this,'imgAddPlaylist');">
             <div>Поиск</div>
             <input type="text" id="inputSearchAudio" name="filter" onkeyup="searchSong()">
             <div class="layer">

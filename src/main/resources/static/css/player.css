@@ -258,28 +258,5 @@ html, body {
     max-height: 0; }
   100% {
     max-height: 75px; } }
-.ion-ios-pause:before {
-  content: "\f478"; }
-
-.ion-ios-play:before {
-  content: "\f488"; }
-
-.ion-ios-skip-backward:before {
-  content: "\f215"; }
-
-.ion-ios-skip-forward:before {
-  content: "\f217"; }
-
-.ion-ios-shuffle:before {
-  content: "\f4a9"; }
-
-.ion-ios-repeat:before {
-  content: "\f1fe"; }
-
-.ion-md-list:before {
-  content: "\f31b"; }
-
-.ion-md-list:before {
-  content: "\f31b"; }
 
 /*# sourceMappingURL=player.css.map */

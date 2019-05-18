@@ -6,6 +6,7 @@ import com.netcracker.musitians_along.repos.PlaylistRepo;
 import com.netcracker.musitians_along.repos.SongRepo;
 import com.netcracker.musitians_along.repos.UserRepo;
 import com.netcracker.musitians_along.service.SaveService;
+import com.netcracker.musitians_along.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -30,11 +31,15 @@ public class SongsRestController {
     @Autowired
     private SaveService saveService;
 
+    @Autowired
+    private UserService userService;
+
     @Value("${upload.path}")
     private String uploadPath;
 
     @GetMapping("/songsRest")
-    public Map userLibrary(@AuthenticationPrincipal User user){
+    public Map userLibrary(){
+        User user = userService.authUser();
         Map<String, Object> params = new HashMap();
         Iterable<Song> songs = songRepo.findAll();
         Iterable<Playlist> playlists = playlistRepo.findAllByAuthor(user);
@@ -45,14 +50,16 @@ public class SongsRestController {
 
     @RequestMapping(value ="/songsRest", method = RequestMethod.POST)
     public String addSongToPlaylist(@RequestParam String song,
-                                  @RequestParam String playlist){
-        Long s = Long.parseLong(song);
-        Long p = Long.parseLong(playlist);
-        Song songBD = songRepo.findFirstById(s);
-        Playlist playlistDB = playlistRepo.findFirstById(p);
-        playlistDB.getSongs().add(songBD);
-        playlistRepo.save(playlistDB);
-        return playlist+song;
+                                  @RequestParam String playlist)throws NullPointerException{
+            Long s = Long.parseLong(song);
+            Long p = Long.parseLong(playlist);
+            Song songBD = songRepo.findFirstById(s);
+            Playlist playlistDB = playlistRepo.findFirstById(p);
+            playlistDB.getSongs().add(songBD);
+            playlistRepo.save(playlistDB);
+            return playlist+song;
+
+
 
     }
     //Запросы на страницу плейлиста
@@ -70,10 +77,10 @@ public class SongsRestController {
             @RequestParam ("background") MultipartFile background,
             @RequestParam String city,
             @RequestParam String nickname,
-            @RequestParam String email,
-            @AuthenticationPrincipal User user) throws IOException{
+            @RequestParam String username) throws IOException{
+        User user = userService.authUser();
         user.setNickname(nickname);
-        user.setEmail(email);
+        user.setUsername(username);
         user.setCity(city);
         if(!avatar.isEmpty()) {
             String img = saveService.transfer(avatar);
@@ -91,8 +98,8 @@ public class SongsRestController {
 
     @RequestMapping(value ="/editRole", method = RequestMethod.POST)
     public User editUserRole(
-            @RequestParam String artist,
-            @AuthenticationPrincipal User user) {
+            @RequestParam String artist) {
+       User user = userService.authUser();
        if(artist.equals("true")){
             user.setArtist(true);
         } else {
@@ -108,8 +115,8 @@ public class SongsRestController {
     public Playlist addPlaylist(
             @RequestParam String title,
             @RequestParam ("file") MultipartFile file,
-            @AuthenticationPrincipal User user,
             Map<String, Object> model) throws IOException {
+        User user = userService.authUser();
         Playlist playlist = new Playlist(title, user);
         if(file!=null && !file.getOriginalFilename().isEmpty()){
             File uploadDir = new File(uploadPath);
@@ -147,7 +154,7 @@ public class SongsRestController {
 
     @GetMapping("/searchSongAddPlaylist")
     public List searchSongAddPlaylist(@RequestParam String title){
-        List<String> listSearch = songRepo.findByMetaTitleContainingOrMetaArtistContaining(title,title);
+        List<String> listSearch = songRepo.findByTitleContainingOrArtistContaining(title,title);
         return listSearch;
     }
 
@@ -158,5 +165,13 @@ public class SongsRestController {
 
 
     }*/
+
+    @GetMapping("/songCollect/{artist}")
+    public Iterable songCollect(@PathVariable("artist") User artist){
+        Iterable<Song> listSearch = songRepo.findByAuthor(artist);
+        return listSearch;
+    }
+
+
 
 }

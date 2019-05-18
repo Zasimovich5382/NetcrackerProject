@@ -2,20 +2,27 @@
 <@c.page "/static/css/user.css">
     <#include "parts/security.ftl">
  <link rel="stylesheet" href="/static/css/player.css">
+<link href="https://unpkg.com/ionicons@4.5.5/dist/css/ionicons.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+
 <body style="background-color: #202020">
     <#include "parts/header.ftl">
-<main>
+<main data-id="${idArtist}" id="main">
     <div class="blocktop" style="background-image: url(/img/${user.getBackground()})">
         <a><button type="button" onclick="show('block')" class="btn btn-primary" style="background-color: crimson; margin-left: 90%; border-color: #171717; margin-top: 2em;">Edit Page</button></a>
         <img id="avatarArtict" width="300px" height="300px" src="/img/${user.getAvatar()}" style = "border-radius: 50%; position: relative; z-index: 5; bottom: 30px; left: 100px"/>
-        <div class="p1" id="nicknamelibrary" style="position: relative; left: 400px; bottom: 200px ">${nickname}</div>
+        <div class="p1" id="nicknamelibrary" style="position: relative; left: 400px; bottom: 200px ">${user.getNickname()}</div>
     </div>
     <div class="mainblock-back">
         <div class="mainblock">
             <div class="btn-group" role="group" aria-label="Basic example" style="margin-left: 5em; margin-top: 3em;">
                 <button type="button" class="btn btn-secondary" style="background-color: #171717; border-color: white">Songs</button>
+                <#if user.getId() == myUser.getId()>
                 <button type="button" class="btn btn-secondary" style="background-color: #171717; border-color: white" onclick="showAddSong('block')">Add</button>
                 <button type="button" class="btn btn-secondary" style="background-color: #171717; border-color: white" onclick="show('block')">Edit</button>
+                </#if>
             </div>
         </div>
     </div>
@@ -35,14 +42,14 @@
 
                 <input type="hidden" value="${user.id}" name="userId">
                 <input type="hidden" value="${_csrf.token}" name="_csrf">
-                <input type="file" name="avatar" onchange="readURL(this,'avatarImg');" class="form-control" id="changeAvatar"  style="margin-left: 2.5em; width: 82%; display: none">
-                <input type="file" name="background"  class="form-control" id="changeBackground"  style="margin-left: 2.5em; width: 82%; display: none">
+                <input type="file" accept=".jpg, .png, .jpeg" name="avatar" onchange="readURL(this,'avatarImg');" class="form-control" id="changeAvatar"  style="margin-left: 2.5em; width: 82%; display: none">
+                <input type="file" accept=".mp3" name="background"  class="form-control" id="changeBackground"  style="margin-left: 2.5em; width: 82%; display: none">
                 <button type="button" class="btn btn-primary" style="background-color: crimson; border-color: white; margin-left: 40%; " id="buttonForEdit">Save</button>
             </div>
         </form>
     </div>
 
-    <div id="gray" onclick="show('none');showAddSong('none')"></div>
+    <div id="gray" onclick="show('none');showAddSong('none');showAddAlbum('none')"></div>
 <#-------------------------------------------------------------форма для редактирования информации о юзере-->
     <div id="app">
 
@@ -53,7 +60,8 @@
                     <div class="col-3 col-md-3 song" >
 
                         <div class='wrapper'>
-
+                            <button class="btn btn-outline-danger" :id="'btnDel'+song.id" :onclick="'delSong('+song.id+')'">Delete</button>
+                            <button type="button" class="btn btn-outline-success" :onclick="'changeAudio('+song.id+')'">Add</button>
 
                             <div class="overlay-play text-center" v-if="isPlaying && (currentSong.id === song.id )" @click='pause'>
                                 <i class="icon ion-ios-pause"></i>
@@ -66,13 +74,13 @@
 
                             </div>
 
-                            <img :src="song.cover_art_url" alt="" class='img-fluid rounded'>
+                            <img :src="'/img/'+ song.coverUrl" alt="" class='img-fluid rounded'>
                         </div>
 
 
 
-                        <p class='song-title mt-2'>{{song.title}}</p>
-                        <p class='song-artiste' >{{song.artist}}</p>
+                        <p class='song-title mt-2' style="color: tomato">{{song.title}}</p>
+                        <p class='song-artiste' style="color: tomato">{{song.artist}}</p>
 
                     </div>
 
@@ -97,7 +105,7 @@
                                         <i class="icon ion-ios-pause"
                                            v-if="isPlaying && (currentSong.id === song.id )"></i>
                                         <i class="icon ion-ios-play" v-else></i>
-                                    </span> {{song.title}}
+                                    </span > {{song.title}}
                                     </div>
                                     <div>
                   <span>
@@ -114,6 +122,7 @@
             <!-- end of playlist -->
 
             <!-- the audio player code starts here -->
+            <div id="list">
             <div class="player" id="player">
 
                 <div class="container">
@@ -199,6 +208,7 @@
                 </div>
 
             </div>
+            </div>
             <!-- the audio player code ends here -->
 
         </div>
@@ -206,5 +216,23 @@
         <audio :loop="innerLoop" ref="audiofile" :src="defaultSong" preload style="display: none" controls></audio>
     </div>
 </main>
+<div id="mainform3">
+<form id="addToPlaylist"  method="POST">
+    <div>
+        <img src="/static/images/closemenu.png" style="width: 35px;height: 35px; float: right; padding: 10px 10px" onclick="showAddAlbum('none')">
+    </div>
+    <#list playlistes as playlist>
+    <div style="display: inline-block; background-color: tomato; background-color: deepskyblue" >
+    <button onclick="addSongPublicSongToPlaylist(${playlist.getId()})"><img src="/img/${playlist.getImgName()}" width="70px" height="70px"></button>
+
+        <p style="color: black; margin-left: 35px">${playlist.getTitle()}</p>
+        <div style="color: black; margin-left: 35px">-</div>
+        <input type="hidden" name="song" id="addSongIdd">
+    </div>
+    </#list>
+    <input <#--type="hidden"--> name="song" id="addSongIdd">
+
+</form>
+</div>
 <script src="/static/js/artist.js"></script>
 </@c.page>

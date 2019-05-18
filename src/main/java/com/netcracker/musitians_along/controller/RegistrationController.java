@@ -28,8 +28,8 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    public String addUser(@Valid User user,
-                          @RequestParam("password2") String passwordConfirm,
+    public String addUser(@RequestParam("password2") String passwordConfirm,
+                          @Valid User user,
                           BindingResult bindingResult,
                           Model model){
         boolean isConfirmEmpty = StringUtils.isEmpty(passwordConfirm);
@@ -41,6 +41,8 @@ public class RegistrationController {
         if (user.getPassword() != null && !user.getPassword().equals(passwordConfirm)){
             model.addAttribute("passwordError", "Passwords are different!");
         }
+
+
 
         if (isConfirmEmpty || bindingResult.hasErrors()) {
             Map<String, String> errors = ControllerUtils.getErrors(bindingResult);

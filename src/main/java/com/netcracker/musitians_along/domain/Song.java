@@ -9,13 +9,13 @@ public class Song {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
-    private String imgName;
+    private String coverUrl;
 
-    private String songPath;
+    private String url;
 
-    private String metaTitle;
+    private String title;
 
-    private String metaArtist;
+    private String artist;
 
     private String metaGenre;
 
@@ -33,9 +33,9 @@ public class Song {
     public Song(){
     }
 
-    public Song(String metaTitle, String metaArtist, String metaGenre,String metaDuration, String metaTempo, User author){
-        this.metaTitle = metaTitle;
-        this.metaArtist = metaArtist;
+    public Song(String title, String artist, String metaGenre, String metaDuration, String metaTempo, User author){
+        this.title = title;
+        this.artist = artist;
         this.metaGenre = metaGenre;
         this.metaDuration = metaDuration;
         this.metaTempo = metaTempo;
@@ -50,20 +50,20 @@ public class Song {
         this.id = id;
     }
 
-    public String getImgName() {
-        return imgName;
+    public String getCoverUrl() {
+        return coverUrl;
     }
 
-    public void setImgName(String imgName) {
-        this.imgName = imgName;
+    public void setCoverUrl(String coverUrl) {
+        this.coverUrl = coverUrl;
     }
 
-    public String getSongPath() {
-        return songPath;
+    public String getUrl() {
+        return url;
     }
 
-    public void setSongPath(String songPath) {
-        this.songPath = songPath;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public User getAuthor() {
@@ -74,20 +74,20 @@ public class Song {
         this.author = author;
     }
 
-    public String getMetaTitle() {
-        return metaTitle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setMetaTitle(String metaTitle) {
-        this.metaTitle = metaTitle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getMetaArtist() {
-        return metaArtist;
+    public String getArtist() {
+        return artist;
     }
 
-    public void setMetaArtist(String metaArtist) {
-        this.metaArtist = metaArtist;
+    public void setArtist(String artist) {
+        this.artist = artist;
     }
 
     public String getMetaGenre() {

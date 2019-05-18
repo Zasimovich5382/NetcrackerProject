@@ -5,12 +5,14 @@ import com.netcracker.musitians_along.domain.User;
 import com.netcracker.musitians_along.repos.SongRepo;
 import com.netcracker.musitians_along.repos.UserRepo;
 import com.netcracker.musitians_along.service.SaveService;
+import com.netcracker.musitians_along.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 public class ArtistController {
@@ -22,13 +24,17 @@ public class ArtistController {
     private UserRepo userRepo;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private SaveService saveService;
 
     @RequestMapping(value ="/addPublicSong", method = RequestMethod.POST)
     public Song addPublicSong(
             @RequestParam ("avatar") MultipartFile avatar,
-            @RequestParam ("background") MultipartFile background,
-            @AuthenticationPrincipal User user) throws IOException{
+            @RequestParam ("background") MultipartFile background) throws IOException{
+
+        User user = userService.authUser();
 
         Song song = saveService.extractMeta(background,user,avatar);
         song.setPublicSong(true);
@@ -56,6 +62,23 @@ public class ArtistController {
 
 
         return user;
+    }
+
+
+
+    @RequestMapping(value ="/delPublicSong", method = RequestMethod.POST)
+    public Iterable delPublicSong(
+            @RequestParam ("id") Long id){
+
+        User user = userService.authUser();
+
+        Song song = songRepo.findFirstById(id);
+
+        songRepo.delete(song);
+
+        Iterable<Song> list = songRepo.findAll();
+
+        return list;
     }
 
 

@@ -27,7 +27,7 @@
             <button type="button" class="btn btn-danger" style="margin-top: 2em;">Shuffle  <img src="/static/images/shuffle.png" width="20" height="20"></button>
             <ul class="list-group" style="margin-left: 3em; padding-top: 1em; margin-right: 3em; padding-bottom: 3em;">
                 <#list playlist.getSongs() as song>
-                    <div id="${song.id}" data-duration="${song.metaDuration}" data-path="/sound/${song.songPath}" data-artist="${song.metaArtist}" data-title="${song.metaTitle}" class="playlist-item">
+                    <div id="${song.id}" data-duration="${song.metaDuration}" data-path="${song.url}" data-artist="${song.artist}" data-title="${song.title}" class="playlist-item">
                             <div class="playlist-inner">
                                     <div class="playlist-play">
                                                     <img class="icon-play2 play-button2" src="/static/images/playmusic.png" style="width: 30px"></img>
